@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DavidAndersonSilva/php-collection.png?branch=master)](https://travis-ci.org/DavidAndersonSilva/php-collection)
+
 PHP Collection
 
 
