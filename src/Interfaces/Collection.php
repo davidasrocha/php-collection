@@ -4,7 +4,8 @@ namespace Collection\Interfaces;
 
 use IteratorAggregate;
 
-interface CollectionType extends IteratorAggregate {
+interface Collection extends IteratorAggregate 
+{
 
     public function add($item);
 
