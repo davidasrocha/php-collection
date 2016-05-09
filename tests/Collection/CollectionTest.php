@@ -2,61 +2,93 @@
 
 namespace Tests\Collection;
 
-use Collection\Collection;
+use PHPCollection\Collection;
+use PHPCollection\Interfaces\CollectionInterface;
+use PHPCollection\ImmutableCollection;
+use Tests\Collection\Entity\Product;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase 
+
+class CollectionTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $collection;
+    private $product1;
 
-	protected function setUp() 
+    private $product2;
+
+    private $product3;
+
+    protected function setUp()
     {
-        $this->collection = new Collection();
-	}
+        $this->product1 = new Product();
+        $this->product1->setId(1);
+        $this->product1->setName('Product 1');
 
-    public function testParaCriacaoDeUmaColecao() {
-        $this->assertInstanceOf(Collection::class, $this->collection);
+        $this->product2 = new Product();
+        $this->product2->setId(2);
+        $this->product2->setName('Product 2');
 
-        return $this->collection;
+        $this->product3 = new Product();
+        $this->product3->setId(3);
+        $this->product3->setName('Product 3');
+    }
+
+    public function testParaCriacaoDeUmaColecao()
+    {
+        $collection = Collection::create();
+
+        $this->assertInstanceOf(CollectionInterface::class, $collection);
+
+        return $collection;
     }
 
     /**
      * @depends testParaCriacaoDeUmaColecao
      */
-    public function testParaAdicionarItensParaColecao() 
+    public function testParaAdicionarItensParaColecao(CollectionInterface $collection)
     {
-        $this->collection->add('Item 1');
-        $this->collection->add('Item 2');
-        $this->collection->add('Item 3');
+        $collection->add($this->product1);
+        $collection->add($this->product2);
+        $collection->add($this->product3);
 
-        $this->assertNotEmpty($this->collection->getIterator());
+        $this->assertNotEmpty($collection->getIterator());
 
-        return $this->collection;
+        return $collection;
     }
 
     /**
      * @depends testParaAdicionarItensParaColecao
      */
-    public function testParaRemoverItemDaColecao(Collection $collection) 
+    public function testParaRemoverItemDaColecao(CollectionInterface $collection)
     {
-        $collection->remove('Item 3');
+        $collection->remove($this->product3);
 
         $atual = count($collection->getIterator());
         $expected = 2;
 
         $this->assertEquals($expected, $atual);
 
-        return $this->collection;
+        return $collection;
     }
 
     /**
      * @depends testParaRemoverItemDaColecao
      */
-    public function testParaDeLimpezaDeColecao(Collection $collection) 
+    public function testParaDeLimpezaDeColecao(CollectionInterface $collection)
     {
         $collection->clear();
 
-        $this->assertEmpty($this->collection->getIterator());
+        $this->assertEmpty($collection->getIterator());
+
+        return $collection;
+    }
+
+    /**
+     * 
+     * @depends testParaDeLimpezaDeColecao
+     */
+    public function testToGetImmutableCollection(Collection $collection)
+    {
+        $this->assertInstanceOf(ImmutableCollection::class, $collection->getImmutableCollection());
     }
 
 }

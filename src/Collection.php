@@ -1,23 +1,44 @@
 <?php
 
-namespace Collection;
+namespace PHPCollection;
 
-use Collection\Interfaces;
 use Exception;
+use ArrayIterator;
+use PHPCollection\Interfaces\CollectionInterface;
+use PHPCollection\ImmutableCollection;
+use PHPCollection\Interfaces\ImmutableCollectionInterface;
 
-class Collection implements Interfaces\Collection 
+
+final class Collection implements CollectionInterface
 {
 
-    private $iterator;
+    private $items;
+
     private $typed;
 
-    public function __construct(array $iterator = [], $typed = null) 
+    private function __construct(array $items, $typed)
     {
-    	$this->iterator = new \ArrayIterator($iterator);
-    	$this->typed = $typed;
+        $this->items = new ArrayIterator($items);
+        $this->typed = $typed;
     }
 
-    public function add($item) 
+    private function __clone()
+    {
+        
+    }
+
+    /**
+     * 
+     * @param array $iterator
+     * @param string $typed
+     * @return Collection
+     */
+    public static function create(array $iterator = [], $typed = null)
+    {
+        return new Collection($iterator, $typed);
+    }
+
+    public function add($item)
     {
         if (!is_null($this->typed)) {
             if (!($item instanceOf $this->typed)) {
@@ -25,26 +46,36 @@ class Collection implements Interfaces\Collection
             }
         }
 
-        $this->iterator->append($item);
+        $this->items->append($item);
     }
 
-    public function remove($item) 
+    public function remove($item)
     {
-        foreach ($this->iterator as $k => $iterator) {
-            if ($item === $iterator) {
-                $this->iterator->offsetUnset($k);
+        foreach ($this->items as $k => $iterator) {
+            if ($item == $iterator) {
+                $this->items->offsetUnset($k);
+                break;
             }
         }
     }
 
-    public function clear() 
+    public function clear()
     {
-        $this->iterator = new \ArrayIterator();
+        $this->items = new ArrayIterator();
     }
 
-    public function getIterator() 
+    public function getIterator()
     {
-        return $this->iterator;
+        return $this->items;
+    }
+
+    /**
+     * 
+     * @return ImmutableCollectionInterface
+     */
+    public function getImmutableCollection()
+    {
+        return new ImmutableCollection($this);
     }
 
 }

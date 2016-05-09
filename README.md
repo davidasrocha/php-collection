@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/DavidAndersonSilva/php-collection.png?branch=master)](https://travis-ci.org/DavidAndersonSilva/php-collection)
+[![Build Status](https://travis-ci.org/davidasrocha/php-collection.png?branch=master)](https://travis-ci.org/davidasrocha/php-collection)
 
 PHP Collection
 
@@ -8,10 +8,10 @@ PHP Collection
 
 Without typing
 ```
-use Collection\Collection;
+use PHPCollection\Collection;
 
 
-$collection = new Collection();
+$collection = Collection::create();
 
 $collection->add('Item 1');
 $collection->add('Item 2');
@@ -23,11 +23,11 @@ $collection->add('Item 5');
 
 With typing
 ```
-use Collection\Collection;
+use PHPCollection\Collection;
 use Entity\Product;
 
 
-$collection = new Collection([], Product:class);
+$collection = Collection::create([], Product:class);
 
 $collection->add(new Product(1001, 'Product 1'));
 $collection->add(new Product(2001, 'Product 2'));

@@ -2,16 +2,21 @@
 
 namespace Tests\Collection;
 
-use Collection\Collection;
+use Exception;
+use PHPCollection\Collection;
+use Tests\Collection\Entity\Product;
 
-class CollectionTypedTest extends \PHPUnit_Framework_TestCase {
+
+class CollectionTypedTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
-     * @expectedException \Exception
-	 */
-    public function testParaVerificacaoDeColecaoTipada() {
-        $collection = new Collection([], Tests\Collection\Entity\Produto::class);
-        $collection->add('Produto 1');
+     * @expectedException Exception
+     */
+    public function testParaVerificacaoDeColecaoTipada()
+    {
+        $collection = Collection::create([], Product::class);
+        $collection->add('Product 1');
     }
 
 }
