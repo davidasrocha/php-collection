@@ -2,7 +2,6 @@
 
 namespace Tests\Collection;
 
-use Exception;
 use PHPCollection\Collection;
 use Tests\Collection\Entity\Product;
 
@@ -11,7 +10,7 @@ class CollectionTypedTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @expectedException Exception
+     * @expectedException \PHPCollection\Exceptions\TypeException
      */
     public function testParaVerificacaoDeColecaoTipada()
     {

@@ -2,10 +2,10 @@
 
 namespace PHPCollection;
 
-use Exception;
 use ArrayIterator;
-use PHPCollection\Interfaces\CollectionInterface;
+use PHPCollection\Exceptions\TypeException;
 use PHPCollection\ImmutableCollection;
+use PHPCollection\Interfaces\CollectionInterface;
 use PHPCollection\Interfaces\ImmutableCollectionInterface;
 
 
@@ -35,15 +35,16 @@ final class Collection implements CollectionInterface
      */
     public static function create(array $iterator = [], $typed = null)
     {
-        return new Collection($iterator, $typed);
+        if (!empty($typed)) {
+            $typed = trim($typed);
+        }
+        return new static($iterator, $typed);
     }
 
     public function add($item)
     {
-        if (!is_null($this->typed)) {
-            if (!($item instanceOf $this->typed)) {
-                throw new Exception("Type isn't permited");
-            }
+        if (!empty($this->typed) && !($item instanceOf $this->typed)) {
+            throw new TypeException("Type isn't permited");
         }
 
         $this->items->append($item);
@@ -61,7 +62,7 @@ final class Collection implements CollectionInterface
 
     public function clear()
     {
-        $this->items = new ArrayIterator();
+        $this->items = [];
     }
 
     public function getIterator()
