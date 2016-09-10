@@ -35,3 +35,16 @@ $collection->add(new Product(3001, 'Product 3'));
 $collection->add(new Product(4001, 'Product 4'));
 $collection->add(new Product(5001, 'Product 5'));
 ```
+
+
+Immutable Collection
+```
+use PHPCollection\ImmutableCollection;
+use Entity\Product;
+
+$collection = Collection::create([], Product:class);
+
+// add items...
+
+$immutable = $collection->getImmutable(); // Traversable throught of IteratorIterator
+```
