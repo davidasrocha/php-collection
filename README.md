@@ -46,5 +46,5 @@ $collection = Collection::create([], Product:class);
 
 // add items...
 
-$immutable = $collection->getImmutable(); // Traversable throught of IteratorIterator
+$immutable = $collection->immutable();
 ```

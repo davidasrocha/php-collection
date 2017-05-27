@@ -1,24 +1,30 @@
 <?php
 
+declare (strict_types = 1);
+
 namespace PHPCollection;
 
 use PHPCollection\Interfaces\ImmutableCollectionInterface;
-use IteratorAggregate;
+use PHPCollection\Interfaces\CollectionInterface;
 
 
 final class ImmutableCollection implements ImmutableCollectionInterface
 {
 
-    private $iterator;
+    /**
+     *
+     * @var CollectionInterface
+     */
+    private $collection;
 
-    public function __construct(IteratorAggregate $items)
+    public function __construct(CollectionInterface $collection)
     {
-        $this->iterator = $items;
+        $this->collection = $colletion;
     }
 
     public function getIterator()
     {
-        return $this->iterator->getIterator();
+        return $this->collection->getIterator();
     }
 
 }

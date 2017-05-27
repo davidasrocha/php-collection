@@ -27,6 +27,6 @@ interface CollectionInterface extends IteratorAggregate
      * 
      * @return ImmutableCollectionInterface
      */
-    public function getImmutableCollection();
+    public function immutable();
 
 }
