@@ -19,7 +19,7 @@ final class ImmutableCollection implements ImmutableCollectionInterface
 
     public function __construct(CollectionInterface $collection)
     {
-        $this->collection = $colletion;
+        $this->collection = $collection;
     }
 
     public function getIterator()
