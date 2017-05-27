@@ -70,7 +70,7 @@ final class Collection implements CollectionInterface
     public function remove($item)
     {
         foreach ($this->items as $k => $iterator) {
-            if ($item === $iterator) {
+            if ($item == $iterator) {
                 $this->items->offsetUnset($k);
                 break;
             }
