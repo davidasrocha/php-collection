@@ -2,13 +2,14 @@
 
 namespace Tests\Collection;
 
+use PHPUnit\Framework\TestCase;
 use PHPCollection\Collection;
 use PHPCollection\Interfaces\CollectionInterface;
 use PHPCollection\ImmutableCollection;
 use Tests\Collection\Entity\Product;
 
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
 
     private $product1;
@@ -32,7 +33,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->product3->setName('Product 3');
     }
 
-    public function testParaCriacaoDeUmaColecao()
+    public function testShouldCreateOneCollection()
     {
         $collection = Collection::create();
 
@@ -42,9 +43,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testParaCriacaoDeUmaColecao
+     * @depends testShouldCreateOneCollection
      */
-    public function testParaAdicionarItensParaColecao(CollectionInterface $collection)
+    public function testShouldAddItemsToCollection(CollectionInterface $collection)
     {
         $collection->add($this->product1);
         $collection->add($this->product2);
@@ -56,9 +57,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testParaAdicionarItensParaColecao
+     * @depends testShouldAddItemsToCollection
      */
-    public function testParaRemoverItemDaColecao(CollectionInterface $collection)
+    public function testShouldRemoveOneItemOfTheCollection(CollectionInterface $collection)
     {
         $collection->remove($this->product3);
 
@@ -71,9 +72,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testParaRemoverItemDaColecao
+     * @depends testShouldRemoveOneItemOfTheCollection
      */
-    public function testParaDeLimpezaDeColecao(CollectionInterface $collection)
+    public function testShouldCleanTheCollection(CollectionInterface $collection)
     {
         $collection->clear();
 
@@ -84,11 +85,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 
-     * @depends testParaDeLimpezaDeColecao
+     * @depends testShouldCleanTheCollection
      */
     public function testToGetImmutableCollection(Collection $collection)
     {
-        $this->assertInstanceOf(ImmutableCollection::class, $collection->getImmutableCollection());
+        $this->assertInstanceOf(ImmutableCollection::class, $collection->immutable());
     }
 
 }
